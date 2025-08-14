@@ -1,0 +1,21 @@
+/*
+ * Copyright (c) 2024 Renesas Electronics Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    gpio_keys {
+		compatible = "gpio-keys";
+
+		user_button: button {
+			label = "User";
+			gpios = <&gpiob 4 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
+	};
+    aliases {
+      sw0 = &user_button;
+    };
+};

@@ -15,11 +15,11 @@ static int set_date_time(const struct device *rtc)
 {
 	int ret = 0;
 	struct rtc_time tm = {
-		.tm_year = 2024 - 1900,
-		.tm_mon = 11 - 1,
-		.tm_mday = 17,
-		.tm_hour = 4,
-		.tm_min = 19,
+		.tm_year = 2025 - 1900,
+		.tm_mon = 8 - 1,
+		.tm_mday = 15,
+		.tm_hour = 22,
+		.tm_min = 48,
 		.tm_sec = 0,
 	};
 
