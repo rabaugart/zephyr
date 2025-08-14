@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2024 Renesas Electronics Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    gpio_keys {
+		compatible = "gpio-keys";
+		debounce-interval-ms = <50>;
+
+		user_button: button {
+			label = "User";
+			gpios = <&gpiob 4 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
+	};
+	leds {
+    	compatible = "gpio-leds";
+        sega: led_gpio_a {
+            gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+        };
+        segb: led_gpio_b {
+            gpios = <&gpioa 9 GPIO_ACTIVE_LOW>;
+        };
+        segc: led_gpio_c {
+            gpios = <&gpioa 10 GPIO_ACTIVE_LOW>;
+        };
+        segd: led_gpio_d {
+            gpios = <&gpiob 0 GPIO_ACTIVE_LOW>;
+        };
+        sege: led_gpio_e {
+            gpios = <&gpiob 5 GPIO_ACTIVE_LOW>;
+        };
+        segf: led_gpio_f {
+            gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
+        };
+        segg: led_gpio_g {
+            gpios = <&gpiob 7 GPIO_ACTIVE_LOW>;
+        };
+	};
+    aliases {
+      sw0 = &user_button;
+      sega = &sega;
+      segb = &segb;
+      segc = &segc;
+      segd = &segd;
+      sege = &sege;
+      segf = &segf;
+      segg = &segg;
+    };
+
+	chosen {
+		zephyr,display = &ssd1306_ssd1306_128x32;
+	};
+
+};
+
+arduino_i2c: &i2c1 {};
+
+&arduino_i2c {
+	status = "okay";
+
+	ssd1306_ssd1306_128x32: ssd1306@3c {
+		compatible = "solomon,ssd1306fb";
+		reg = <0x3c>;
+		width = <128>;
+		height = <32>;
+		segment-offset = <0>;
+		page-offset = <0>;
+		display-offset = <0>;
+		multiplex-ratio = <31>;
+		segment-remap;
+		com-invdir;
+		com-sequential;
+		prechargep = <0x22>;
+	};
+};
