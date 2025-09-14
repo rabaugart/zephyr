@@ -4,6 +4,32 @@
 
    Control an LED strip.
 
+rb für nucleo_l432kc, 14.9.25
+*****************************
+
+*Baut nicht*
+
+Lässt sich nicht ohne weiteres auf nucleo_l432 bauen, weil es Spezifika von nrf verwendet,
+siehe [`Kconfig.ws2812`](https://github.com/rabaugart/zephyr/blob/rb-v4.2/drivers/led_strip/Kconfig.ws2812).
+
+Patchen der `Kconfig` reicht nicht:
+
+~~~~~~~~
+diff --git a/drivers/led_strip/Kconfig.ws2812 b/drivers/led_strip/Kconfig.ws2812
+index eb6cec6732a..07c481bf4b4 100644
+--- a/drivers/led_strip/Kconfig.ws2812
++++ b/drivers/led_strip/Kconfig.ws2812
+@@ -34,7 +34,7 @@ config WS2812_STRIP_GPIO
+        # nRF52 and nRF53 is supported currently.
+        default y
+        depends on DT_HAS_WORLDSEMI_WS2812_GPIO_ENABLED
+-       depends on (SOC_SERIES_NRF91X || SOC_SERIES_NRF51X || SOC_SERIES_NRF52X || SOC_SERIES_NRF53X)
++       depends on (SOC_SERIES_NRF91X || SOC_SERIES_NRF51X || SOC_SERIES_NRF52X || SOC_SERIES_NRF53X || SOC_SERIES_STM32L4X)
+        select LED_STRIP_RGB_SCRATCH
+        help
+          Enable driver for WS2812 (and compatibles) LED strip directly
+~~~~~~~~
+
 Overview
 ********
 

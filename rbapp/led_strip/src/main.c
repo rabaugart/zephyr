@@ -8,6 +8,7 @@
 
 #include <errno.h>
 #include <string.h>
+#include <zephyr/devicetree.h>
 
 #define LOG_LEVEL 4
 #include <zephyr/logging/log.h>
